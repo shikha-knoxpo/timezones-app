@@ -71,13 +71,15 @@ const Calendar = ({ showDetailsHandle }) => {
     const days = [];
     let startDate = startOfWeek(currentMonth, { weekStartsOn: 1 });
     for (let i = 0; i < 7; i++) {
-      days.push(
-        <div className="col col-center" key={i}>
+      days.push(<>
+        <div className="text-left justify-start items-start text-red-600 font-bold" key={i}>
           {format(addDays(startDate, i), dateFormat)}
         </div>
+        <br/><br/><br/><br/>
+        </>
       );
     }
-    return <div className="days row">{days}</div>;
+    return <div className="w-auto">{days}</div>;
   };
   const renderCells = () => {
     const startDate = startOfWeek(currentMonth, { weekStartsOn: 1 });
@@ -92,29 +94,29 @@ const Calendar = ({ showDetailsHandle }) => {
         formattedDate = format(day, dateFormat);
         const cloneDay = day;
         days.push(
-          <div
-            className={`col cell ${
-              isSameDay(day, new Date())
-                ? "today"
-                : isSameDay(day, selectedDate)
-                ? "selected"
-                : ""
-            }`}
-            key={day}
-            onClick={() => {
-              const dayStr = format(cloneDay, "ccc dd MMM yy");
-              onDateClickHandle(cloneDay, dayStr);
-            }}
-          >
-            <span className="number">{formattedDate}</span>
-            <span className="bg">{formattedDate}</span>
-          </div>
+          <><div
+          className={` ${
+            isSameDay(day, new Date())
+              ? "today"
+              : isSameDay(day, selectedDate)
+              ? "selected"
+              : ""
+          }`}
+          key={day}
+          onClick={() => {
+            const dayStr = format(cloneDay, "ccc dd MMM yy");
+            onDateClickHandle(cloneDay, dayStr);
+          }}
+        >
+          <span className="">{formattedDate}/{format(currentMonth, "MM")}</span>
+          </div><br/><br/><br/><br/></>
+          
         );
         day = addDays(day, 1);
       }
 
       rows.push(
-        <div className="row" key={day}>
+        <div className="text-left justify-start items-start" key={day}>
           {days}
         </div>
       );
@@ -127,7 +129,7 @@ const Calendar = ({ showDetailsHandle }) => {
       <div className="grid grid-cols-3 text-blue-700 ">
         <div className="">
           <div
-            className="ml-0 pl-0 justify-start text-left"
+            className="ml-0 pl-0 justify-start text-left hover:cursor-pointer"
             onClick={() => changeWeekHandle("prev")}
           >
             Previous Week
@@ -138,7 +140,7 @@ const Calendar = ({ showDetailsHandle }) => {
           <SelectedDate currentDate={new Date()} />
         </div>
         <div className="text-right" onClick={() => changeWeekHandle("next")}>
-          <div className="">Next week</div>
+          <div className="hover:cursor-pointer">Next week</div>
         </div>
       </div>
     );
@@ -146,10 +148,15 @@ const Calendar = ({ showDetailsHandle }) => {
   return (
     <div className="">
       {/* {renderHeader()}
-      {renderDays()}
-      {renderCells()} */}
+      
+       */}
+      
       {renderFooter()}.
       <TimezoneSelector />
+      <br/><br/>
+      <div className="flex space-x-1"><div>{renderDays()}</div><div></div>{renderCells()}</div>
+    
+      
     </div>
   );
 };
