@@ -14,7 +14,7 @@ export const TimezoneSelector = () => {
           onChange={setSelectedTimezone}
           timezones={{
             "Europe/London": "Edinburgh, London",
-            "America/Lima": "Pittsburgh",
+            "America/Lima": "Pittsburgh"
           }}
         />
       </div>

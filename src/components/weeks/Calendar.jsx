@@ -13,6 +13,7 @@ import {
 } from "date-fns";
 import TimezoneSelector from "../TimezoneSelector";
 import SelectedDate from "../SelectedDate";
+import TimeArray from "./TimeArray";
 
 const Calendar = ({ showDetailsHandle }) => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
@@ -71,11 +72,18 @@ const Calendar = ({ showDetailsHandle }) => {
     const days = [];
     let startDate = startOfWeek(currentMonth, { weekStartsOn: 1 });
     for (let i = 0; i < 7; i++) {
-      days.push(<>
-        <div className="text-left justify-start items-start text-red-600 font-bold" key={i}>
-          {format(addDays(startDate, i), dateFormat)}
-        </div>
-        <br/><br/><br/><br/>
+      days.push(
+        <>
+          <div
+            className="text-left justify-start items-start text-red-600 font-bold"
+            key={i}
+          >
+            {format(addDays(startDate, i), dateFormat)}
+          </div>
+          <br />
+          <br />
+          <br />
+          <br />
         </>
       );
     }
@@ -94,23 +102,37 @@ const Calendar = ({ showDetailsHandle }) => {
         formattedDate = format(day, dateFormat);
         const cloneDay = day;
         days.push(
-          <><div
-          className={` ${
-            isSameDay(day, new Date())
-              ? "today"
-              : isSameDay(day, selectedDate)
-              ? "selected"
-              : ""
-          }`}
-          key={day}
-          onClick={() => {
-            const dayStr = format(cloneDay, "ccc dd MMM yy");
-            onDateClickHandle(cloneDay, dayStr);
-          }}
-        >
-          <span className="">{formattedDate}/{format(currentMonth, "MM")}</span>
-          </div><br/><br/><br/><br/></>
-          
+          <>
+            <div
+              className={` ${
+                isSameDay(day, new Date())
+                  ? "today"
+                  : isSameDay(day, selectedDate)
+                  ? "selected"
+                  : ""
+              }`}
+              key={day}
+              onClick={() => {
+                const dayStr = format(cloneDay, "ccc dd MMM yy");
+                onDateClickHandle(cloneDay, dayStr);
+              }}
+            >
+              <span className="flex">
+                {formattedDate}/{format(currentMonth, "MM")}{" "}
+                {day <= new Date() ? (
+                  <span className="font-bold">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PAST
+                  </span>
+                ) : (
+                  <TimeArray />
+                )}
+              </span>
+            </div>
+            <br />
+            <br />
+            <br />
+            <br />
+          </>
         );
         day = addDays(day, 1);
       }
@@ -150,13 +172,15 @@ const Calendar = ({ showDetailsHandle }) => {
       {/* {renderHeader()}
       
        */}
-      
       {renderFooter()}.
       <TimezoneSelector />
-      <br/><br/>
-      <div className="flex space-x-1"><div>{renderDays()}</div><div></div>{renderCells()}</div>
-    
-      
+      <br />
+      <br />
+      <div className="flex space-x-1">
+        <div>{renderDays()}</div>
+        <div></div>
+        {renderCells()}
+      </div>
     </div>
   );
 };
