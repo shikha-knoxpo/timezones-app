@@ -84,6 +84,12 @@ const Calendar = ({ showDetailsHandle }) => {
           <br />
           <br />
           <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
         </>
       );
     }
@@ -124,7 +130,7 @@ const Calendar = ({ showDetailsHandle }) => {
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PAST
                   </span>
                 ) : (
-                  <TimeArray />
+                  <TimeArray dateString={day.toDateString()} />
                 )}
               </span>
             </div>
