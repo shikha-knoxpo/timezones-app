@@ -2,9 +2,13 @@ import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import TimezoneSelect from "react-timezone-select";
 
-export const TimezoneSelector = () => {
+export const TimezoneSelector = (props) => {
   const [selectedTimezone, setSelectedTimezone] = useState({});
-  const handleChange = () =>{}
+  const handleChange = (e) =>{
+    setSelectedTimezone(e)
+    console.log(e.value);
+    props.handleChange(e.value);
+  }
   return (
     <>
       <p className=" text-left font-bold">TimeZone:</p>
@@ -12,10 +16,11 @@ export const TimezoneSelector = () => {
       <div className="select-wrapper">
         <TimezoneSelect
           value={selectedTimezone}
-          onChange={setSelectedTimezone}
+          onChange={handleChange}
           timezones={{
             "Europe/London": "Edinburgh, London",
-            "America/Lima": "Pittsburgh"
+            "Atlantic/Canary": "Canary Islands",
+            "Europe/Lisbon": "Lisbon",
           }}
         />
       </div>

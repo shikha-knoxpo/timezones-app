@@ -36,7 +36,40 @@ const TimeArray = (props) => {
     new Date(props.dateString + " 22:30:00"),
     new Date(props.dateString + " 23:00:00"),
   ]);
- 
+  const [checkListTime, setCheckListTime] = useState([
+    new Date(props.dateString + " 02:00:00"),
+    new Date(props.dateString + " 02:30:00"),
+    new Date(props.dateString + " 03:00:00"),
+    new Date(props.dateString + " 03:30:00"),
+    new Date(props.dateString + " 04:00:00"),
+    new Date(props.dateString + " 04:30:00"),
+    new Date(props.dateString + " 05:00:00"),
+    new Date(props.dateString + " 05:30:00"),
+    new Date(props.dateString + " 06:00:00"),
+    new Date(props.dateString + " 06:30:00"),
+    new Date(props.dateString + " 07:00:00"),
+    new Date(props.dateString + " 07:30:00"),
+    new Date(props.dateString + " 08:00:00"),
+    new Date(props.dateString + " 08:30:00"),
+    new Date(props.dateString + " 09:00:00"),
+    new Date(props.dateString + " 09:30:00"),
+    new Date(props.dateString + " 10:00:00"),
+    new Date(props.dateString + " 10:30:00"),
+    new Date(props.dateString + " 11:00:00"),
+    new Date(props.dateString + " 11:30:00"),
+    new Date(props.dateString + " 12:00:00"),
+    new Date(props.dateString + " 12:30:00"),
+    new Date(props.dateString + " 13:00:00"),
+    new Date(props.dateString + " 13:30:00"),
+    new Date(props.dateString + " 14:00:00"),
+    new Date(props.dateString + " 14:30:00"),
+    new Date(props.dateString + " 15:00:00"),
+    new Date(props.dateString + " 15:30:00"),
+    new Date(props.dateString + " 16:00:00"),
+    new Date(props.dateString + " 16:30:00"),
+    new Date(props.dateString + " 17:00:00"),
+  ]);
+ console.log(props.timeZone);
   const [d, setD] = useState(new Date(props.dateString + " 08:00:00"));
   
   
@@ -81,7 +114,7 @@ const TimeArray = (props) => {
     <>
       <div className="">
         <div className="">
-          {checkList.map((item, index) => (
+            {props.timeZone==="Atlantic/Canary" ? <>{checkList.map((item, index) => (
             <span key={index}>
              
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -93,12 +126,31 @@ const TimeArray = (props) => {
               />
               &nbsp;
               <span className={isChecked(item)}>
-                {new Date(item).getHours()}:{new Date(item).getMinutes()}
-                {new Date(item).getMinutes()<10 && <>0</>}
+               
+                {new Date(item).getHours()%12}:{new Date(item).getMinutes()}{new Date(item).getMinutes()<10 && <>0</>}
+                {new Date(item).getHours()>=12 ?<>PM</>:<>AM</>}
               </span>
-              {index % 15 == 0 && <br />}
+              {index % 12 == 0 && <br />}
             </span>
-          ))}
+          ))}</> : <>{checkListTime.map((item, index) => (
+            <span key={index}>
+             
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <input
+                value={item}
+                type="checkbox"
+                onChange={handleCheck}
+                class="bg-red-500 border-red-500 text-blue-500 focus:ring-red-200"
+              />
+              &nbsp;
+              <span className={isChecked(item)}>
+              {new Date(item).getHours()%12}:{new Date(item).getMinutes()}{new Date(item).getMinutes()<10 && <>0</>}
+                {new Date(item).getHours()>=12 ?<>PM</>:<>AM</>}
+              </span>
+              {index % 12 == 0 && <br />}
+            </span>
+          ))}</>}
+          
         </div>
       </div>
     </>

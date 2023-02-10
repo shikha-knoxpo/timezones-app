@@ -19,7 +19,11 @@ const Calendar = ({ showDetailsHandle }) => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [currentWeek, setCurrentWeek] = useState(getWeek(currentMonth));
   const [selectedDate, setSelectedDate] = useState(new Date());
-
+  const [timeZone,setTimeZone]=useState("Atlantic/Canary")
+  const onChangeHandler = (e) =>{
+    console.log(e)
+    setTimeZone(e);
+  }
   const changeMonthHandle = (btnType) => {
     if (btnType === "prev") {
       setCurrentMonth(subMonths(currentMonth, 1));
@@ -78,13 +82,14 @@ const Calendar = ({ showDetailsHandle }) => {
             {format(addDays(startDate, i), dateFormat)}
           </div>
           
-          {startDate <= new Date() ? <><br/><br />
+          {startDate < new Date() ? <><br/><br />
           <br />
           <br />
           <br /></> : <><br />
           <br />
           <br />
           <br /><br />
+          <br />
           <br />
           </>}
         </>
@@ -127,7 +132,7 @@ const Calendar = ({ showDetailsHandle }) => {
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PAST
                   </span>
                 ) : (
-                  <TimeArray dateString={day.toDateString()} />
+                  <TimeArray dateString={day.toDateString()} timeZone={timeZone} />
                 )}
               </span>
               {day <= new Date() && <><br/></>}
@@ -177,7 +182,7 @@ const Calendar = ({ showDetailsHandle }) => {
       
        */}
       {renderFooter()}.
-      <TimezoneSelector  />
+      <TimezoneSelector handleChange={onChangeHandler} />
       <br />
       <br />
       <div className="flex space-x-1">
