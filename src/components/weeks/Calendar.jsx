@@ -54,16 +54,13 @@ const Calendar = ({ showDetailsHandle }) => {
     return (
       <div className="header row flex-middle">
         <div className="col col-start">
-          {/* <div className="icon" onClick={() => changeMonthHandle("prev")}>
-            prev month
-          </div> */}
+         
         </div>
         <div className="col col-center">
           <span>{format(currentMonth, dateFormat)}</span>
         </div>
         <div className="col col-end">
-          {/* <div className="icon" onClick={() => changeMonthHandle("next")}>next month</div> */}
-        </div>
+         </div>
       </div>
     );
   };
@@ -80,16 +77,16 @@ const Calendar = ({ showDetailsHandle }) => {
           >
             {format(addDays(startDate, i), dateFormat)}
           </div>
+          
+          {startDate <= new Date() ? <><br/><br />
           <br />
           <br />
+          <br /></> : <><br />
           <br />
           <br />
+          <br /><br />
           <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
+          </>}
         </>
       );
     }
@@ -133,6 +130,7 @@ const Calendar = ({ showDetailsHandle }) => {
                   <TimeArray dateString={day.toDateString()} />
                 )}
               </span>
+              {day <= new Date() && <><br/></>}
             </div>
             <br />
             <br />
@@ -179,7 +177,7 @@ const Calendar = ({ showDetailsHandle }) => {
       
        */}
       {renderFooter()}.
-      <TimezoneSelector />
+      <TimezoneSelector  />
       <br />
       <br />
       <div className="flex space-x-1">

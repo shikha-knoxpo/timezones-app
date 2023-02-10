@@ -36,32 +36,22 @@ const TimeArray = (props) => {
     new Date(props.dateString + " 22:30:00"),
     new Date(props.dateString + " 23:00:00"),
   ]);
+ 
   const [d, setD] = useState(new Date(props.dateString + " 08:00:00"));
-  let dArray = [];
-  let x = new Date(props.dateString + " 08:00:00");
-
-  for (let i = 0; i < 30; i++) {
-    dArray.push(x);
-    x.setTime(d.getTime() + 30 * 60 * 1000);
-    console.log(x);
-  }
+  
+  
+  // Tried to create a dynamic Time Array but couldn't finish due to lack of time
 
   // useEffect(() => {
   //   for (let i = 1; i < 30; i++) {
   //     //setD(d.setTime(d.getTime() + 30 * 60 * 1000));
   //     //setD(checkList[i])
-  //     //console.log(d);
   //     let s = checkList[i - 1];
   //     //s = s.setTime(d.getTime() + 30 * 60 * 1000);
-  //     console.log(s);
   //     setCheckList((checkList) => [...checkList, s]);
-  //     console.log(checkList);
   //   }
 
-  //   // console.log(dArray);
-  //   //console.log(d.toDateString().concat(d.getMinutes()));
   //   //setCheckList(dArray);
-  //   console.log(checkList);
   // }, []);
 
   // Add/Remove checked item from list
@@ -93,18 +83,20 @@ const TimeArray = (props) => {
         <div className="">
           {checkList.map((item, index) => (
             <span key={index}>
-              {index % 6 == 0 && <br />}
+             
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               <input
                 value={item}
                 type="checkbox"
                 onChange={handleCheck}
-                className="accent-blue-500"
+                class="bg-red-500 border-red-500 text-blue-500 focus:ring-red-200"
               />
               &nbsp;
               <span className={isChecked(item)}>
                 {new Date(item).getHours()}:{new Date(item).getMinutes()}
+                {new Date(item).getMinutes()<10 && <>0</>}
               </span>
+              {index % 15 == 0 && <br />}
             </span>
           ))}
         </div>
